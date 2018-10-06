@@ -2,9 +2,17 @@
 import os
 import sys
 
-
 inputFile = sys.argv[1]
 outputFile = sys.argv[2]
+
+filename, file_extension = os.path.splitext('/path/to/somefile.ext')
+
+# if the input file is a pdf file
+if file_extension == ".pdf":
+    cmd = "pdftotext %s %s" % (inputFile, inputFile + ".txt")
+    os.system(cmd)
+    inputFile = inputFile + ".txt"
+
 
 bashCommand = "sumy lex-rank --length=100% --file={} >> {}".format(inputFile, outputFile)
 
