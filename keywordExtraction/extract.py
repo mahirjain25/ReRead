@@ -14,9 +14,8 @@ def get_google_links(string):
     URL = 'https://www.google.com/search?q=' + string
     page  = requests.get(URL)
     page_data = page.text
-    place_soup = BeautifulSoup(page_data, 'lxml')
-    place_soup
-    links = place_soup.findAll('h3', {'class' : 'r'})
+    page_soup = BeautifulSoup(page_data, 'lxml')
+    links = page_soup.findAll('h3', {'class' : 'r'})
     for link in links:
         if link.find('a') is not None:
             link_list.append(link.find('a')['href'][7:])
