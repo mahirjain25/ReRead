@@ -1,7 +1,16 @@
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Upload</button>
-  </form>
+<html>
+	<head>
+		<title>File upload</title>
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    </head>
+    <body>
+		<form method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit">Upload</button>
+		</form>
 
-  <p><a href="{% url 'home' %}">Return to home</a></p>
+  		<p><a href="{% url 'home' %}">Return to home</a></p>
+  	</body>
+  </html>
