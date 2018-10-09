@@ -1,0 +1,113 @@
+(venv3) mahir@mahir-lenovo-ideapad-500-15isk:~/bake/source/ns-3-dev$ /usr/bin/python3.7 ./waf configure
+Setting top to                           : /home/mahir/bake/source/ns-3-dev 
+Setting out to                           : /home/mahir/bake/source/ns-3-dev/build 
+Checking for 'gcc' (C compiler)          : /usr/bin/gcc 
+Checking for cc version                  : 7.3.0 
+Checking for 'g++' (C++ compiler)        : /usr/bin/g++ 
+Checking for compilation flag -Wl,--soname=foo support : ok 
+Checking for compilation flag -std=c++11 support       : ok 
+Checking for program 'python'                          : /usr/bin/python3.7 
+Checking for python version >= 2.3                     : 3.7.0 
+python-config                                          : /usr/bin/python3.7-config 
+Asking python-config for pyembed '--cflags --libs --ldflags' flags : yes 
+Testing pyembed configuration                                      : yes 
+Asking python-config for pyext '--cflags --libs --ldflags' flags   : yes 
+Testing pyext configuration                                        : yes 
+Checking for compilation flag -fvisibility=hidden support          : ok 
+Checking for compilation flag -Wno-array-bounds support            : ok 
+Checking for pybindgen location                                    : ../pybindgen (guessed) 
+Checking for python module 'pybindgen'                             : 0.19.0.post4+g823d8b2 
+Checking for pybindgen version                                     : 0.19.0.post4+g823d8b2 
+Checking for code snippet                                          : yes 
+Checking for types uint64_t and unsigned long equivalence          : no 
+Checking for code snippet                                          : no 
+Checking for types uint64_t and unsigned long long equivalence     : yes 
+Checking for the apidefs that can be used for Python bindings      : gcc-LP64 
+Checking for internal GCC cxxabi                                   : complete 
+Checking for python module 'pygccxml'                              : not found 
+Checking boost includes                                            : 1_65_1 
+Checking boost libs                                                : ok 
+Checking for boost linkage                                         : ok 
+Checking for BRITE location                                        : ../BRITE (guessed) 
+Checking for library dl                                            : yes 
+Checking for library brite                                         : yes 
+Checking for click location                                        : ../../build (guessed) 
+Checking for library dl                                            : yes 
+Checking for library nsclick                                       : yes 
+Checking for program 'pkg-config'                                  : /usr/bin/pkg-config 
+Checking for 'gtk+-3.0'                                            : not found 
+Checking for 'libxml-2.0'                                          : yes 
+checking for uint128_t                                             : not found 
+checking for __uint128_t                                           : yes 
+Checking high precision implementation                             : 128-bit integer (default) 
+Checking for header stdint.h                                       : yes 
+Checking for header inttypes.h                                     : yes 
+Checking for header sys/inttypes.h                                 : not found 
+Checking for header sys/types.h                                    : yes 
+Checking for header sys/stat.h                                     : yes 
+Checking for header dirent.h                                       : yes 
+Checking for header stdlib.h                                       : yes 
+Checking for header signal.h                                       : yes 
+Checking for header pthread.h                                      : yes 
+Checking for header stdint.h                                       : yes 
+Checking for header inttypes.h                                     : yes 
+Checking for header sys/inttypes.h                                 : not found 
+Checking for library rt                                            : yes 
+Checking for header sys/ioctl.h                                    : yes 
+Checking for header net/if.h                                       : yes 
+Checking for header net/ethernet.h                                 : yes 
+Checking for header linux/if_tun.h                                 : yes 
+Checking for header netpacket/packet.h                             : yes 
+Checking for NSC location                                          : not found 
+Checking for OpenFlow location                                     : not found 
+Checking for 'sqlite3'                                             : yes 
+Checking for header linux/if_tun.h                                 : yes 
+Checking for python module 'gi'                                    : not found 
+Checking for python module 'gi.repository.GObject'                 : not found 
+Checking for python module 'cairo'                                 : not found 
+Checking for python module 'pygraphviz'                            : not found 
+Checking for python module 'gi.repository.Gtk'                     : not found 
+Checking for python module 'gi.repository.Gdk'                     : not found 
+Checking for python module 'gi.repository.Pango'                   : not found 
+Checking for python module 'gi.repository.GooCanvas'               : not found 
+Checking for program 'sudo'                                        : /usr/bin/sudo 
+Checking for program 'valgrind'                                    : /usr/bin/valgrind 
+Checking for 'gsl'                                                 : not found 
+python-config                                                      : not found 
+Checking for compilation flag -fstrict-aliasing support            : ok 
+Checking for compilation flag -fstrict-aliasing support            : ok 
+Checking for compilation flag -Wstrict-aliasing support            : ok 
+Checking for compilation flag -Wstrict-aliasing support            : ok 
+Checking for program 'doxygen'                                     : not found 
+---- Summary of optional NS-3 features:
+Build profile                 : debug
+Build directory               : 
+BRITE Integration             : enabled
+DES Metrics event collection  : not enabled (defaults to disabled)
+Emulation FdNetDevice         : enabled
+Examples                      : not enabled (defaults to disabled)
+File descriptor NetDevice     : enabled
+GNU Scientific Library (GSL)  : not enabled (GSL not found)
+Gcrypt library                : not enabled (libgcrypt not found: you can use libgcrypt-config to find its location.)
+GtkConfigStore                : not enabled (library 'gtk+-3.0 >= 3.0' not found)
+MPI Support                   : not enabled (option --enable-mpi not selected)
+NS-3 Click Integration        : enabled
+NS-3 OpenFlow Integration     : not enabled (OpenFlow not enabled (see option --with-openflow))
+Network Simulation Cradle     : not enabled (NSC not found (see option --with-nsc))
+PlanetLab FdNetDevice         : not enabled (PlanetLab operating system not detected (see option --force-planetlab))
+PyViz visualizer              : not enabled (Missing python modules: gi, gi.repository.GObject, cairo, pygraphviz, gi.repository.Gtk, gi.repository.Gdk, gi.repository.Pango, gi.repository.GooCanvas)
+Python API Scanning Support   : not enabled (Missing 'pygccxml' Python module)
+Python Bindings               : enabled
+Real Time Simulator           : enabled
+SQlite stats data output      : enabled
+Tap Bridge                    : enabled
+Tap FdNetDevice               : enabled
+Tests                         : not enabled (defaults to disabled)
+Threading Primitives          : enabled
+Use sudo to set suid bit      : not enabled (option --enable-sudo not selected)
+XmlIo                         : enabled
+'configure' finished successfully (9.385s)
+(venv3) mahir@mahir-lenovo-ideapad-500-15isk:~/bake/source/ns-3-dev$ pip3.7 install pygccxml
+Requirement already satisfied: pygccxml in /home/mahir/venv3/lib/python3.7/site-packages (1.9.1)
+(venv3) mahir@mahir-lenovo-ideapad-500-15isk:~/bake/source/ns-3-dev$ 
+
