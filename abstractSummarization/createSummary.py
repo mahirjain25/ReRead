@@ -5,7 +5,7 @@ import sys
 inputFile = sys.argv[1]
 outputFile = sys.argv[2]
 
-filename, file_extension = os.path.splitext('/path/to/somefile.ext')
+filename, file_extension = os.path.splitext('dependencies.txt')
 
 # if the input file is a pdf file
 if file_extension == ".pdf":
