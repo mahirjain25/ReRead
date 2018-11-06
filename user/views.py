@@ -36,7 +36,7 @@ def logout_page(request):
 def displayUploadedFile(request):
 	if request.method == 'GET':
 		file_name = request.GET.get('file_name')
-		with open('user/files/' + file_name + '.txt') as f:
+		with open('user/files/' + request.user.username + '/' + file_name + '.txt') as f:
 			data = f.read()
 		return render(request, 'display_uploaded_file.html', {'content' : data})
 
@@ -90,7 +90,7 @@ def displaySummaryView(request):
 @login_required(redirect_field_name='login')
 def keywordView(request):
     file_name = request.GET.get('file_name')
-    file_path = ('user/files/' + file_name + '.txt')
+    file_path = ('user/files/' + request.user.username + '/' + file_name + '.txt')
     info = get_keyword_info(file_path)
     print(info)
     return render(request, 'keyword_extraction.html', {'content' : info})
