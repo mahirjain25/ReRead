@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Keywords</title>
+</head>
+<body>
+	<ul>
+	{% for key,value in content.items %}
+		<li> {{ key }}
+			<ul>
+				{% for link in value %}
+					<li>{{ link }}</li>
+				{% endfor %}
+			</ul>
+		</li>
+	{% endfor %}
+	</ul>
+</body>
+</html>
