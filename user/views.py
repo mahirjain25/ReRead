@@ -9,6 +9,7 @@ from django.urls import reverse
 from urllib.parse import urlencode
 from .views import *
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
 from gensim.summarization import keywords
 from bs4 import BeautifulSoup
 import requests
@@ -18,11 +19,6 @@ import time
 import os
 import sys
 
-
-import os
-import sys
-
-
 # Create your views here.
 @login_required(redirect_field_name='login')
 def userHomePage(request):
@@ -30,6 +26,11 @@ def userHomePage(request):
 		os.mkdir('user/files/'+request.user.username)
 	return render(request,'user_home.html')
 	
+@login_required(redirect_field_name='login')
+def logout_page(request):
+    os.system("rm -rf "+os.getcwd()+"/user/files/"+request.user.username)
+    return HttpResponseRedirect('/#')
+
 
 @login_required(redirect_field_name='login')
 def displayUploadedFile(request):
@@ -44,11 +45,8 @@ def fileUploadView(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            handle_uploaded_file(request.FILES['file'], form.cleaned_data['title'])
-            base_url = '/user/keywords/'
-            query_string = urlencode({'file_name' : form.cleaned_data['title']})
-            url = '{}?{}'.format(base_url, query_string)
-            return HttpResponseRedirect(url)
+            handle_uploaded_file(request.user.username,request.FILES['file'], form.cleaned_data['title'])
+            return HttpResponseRedirect('/user')
     else:
         form = UploadFileForm()
     return render(request, 'upload.html', {
@@ -57,22 +55,9 @@ def fileUploadView(request):
 
 
 def handle_uploaded_file(username, f, file_name):
-    with open('user/files/' + file_name + '.txt', 'wb+') as destination:
+    with open('user/files/'+username+'/'+ file_name + '.txt', 'wb+') as destination:
         for chunk in f.chunks():
-            destination.write(chunk)
-    if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            handle_uploaded_file(request.user.username,request.FILES['file'], form.cleaned_data['title'])
-            base_url = '/user/display_uploaded_file/'
-            query_string = urlencode({'file_name' : form.cleaned_data['title']})
-            url = '{}?{}'.format(base_url, query_string)
-            return HttpResponseRedirect(url)
-    else:
-        form = UploadFileForm()
-    return render(request, 'upload.html', {
-        'form': form
-    })
+            destination.write(chunk)  
 
 
 
