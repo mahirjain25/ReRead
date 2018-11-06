@@ -56,11 +56,11 @@ def fileUploadView(request):
     })
 
 
-def handle_uploaded_file(f, file_name):
+def handle_uploaded_file(username, f, file_name):
     with open('user/files/' + file_name + '.txt', 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
-        if request.method == 'POST':
+    if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
             handle_uploaded_file(request.user.username,request.FILES['file'], form.cleaned_data['title'])
@@ -74,10 +74,6 @@ def handle_uploaded_file(f, file_name):
         'form': form
     })
 
-def handle_uploaded_file(username,f, file_name):
-    with open('user/files/'+username+'/' + file_name + '.txt', 'wb+') as destination:
-        for chunk in f.chunks():
-            destination.write(chunk)
 
 
 def createSummaryFromFile(filepath,len_pct):
