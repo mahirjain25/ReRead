@@ -35,7 +35,7 @@ def userHomePage(request):
 def displayUploadedFile(request):
 	if request.method == 'GET':
 		file_name = request.GET.get('file_name')
-		with open('user/files/' + file_name + '.txt') as f:
+		with open('user/files/' + request.user.username + '/' + file_name + '.txt') as f:
 			data = f.read()
 		return render(request, 'display_uploaded_file.html', {'content' : data})
 
@@ -44,7 +44,7 @@ def fileUploadView(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            handle_uploaded_file(request.FILES['file'], form.cleaned_data['title'])
+            handle_uploaded_file(request.user.username, request.FILES['file'], form.cleaned_data['title'])
             base_url = '/user/keywords/'
             query_string = urlencode({'file_name' : form.cleaned_data['title']})
             url = '{}?{}'.format(base_url, query_string)
@@ -57,22 +57,10 @@ def fileUploadView(request):
 
 
 def handle_uploaded_file(username, f, file_name):
-    with open('user/files/' + file_name + '.txt', 'wb+') as destination:
+    with open('user/files/' + username + '/' + file_name + '.txt', 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
-    if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            handle_uploaded_file(request.user.username,request.FILES['file'], form.cleaned_data['title'])
-            base_url = '/user/display_uploaded_file/'
-            query_string = urlencode({'file_name' : form.cleaned_data['title']})
-            url = '{}?{}'.format(base_url, query_string)
-            return HttpResponseRedirect(url)
-    else:
-        form = UploadFileForm()
-    return render(request, 'upload.html', {
-        'form': form
-    })
+    
 
 
 
@@ -105,7 +93,7 @@ def displaySummaryView(request):
 @login_required(redirect_field_name='login')
 def keywordView(request):
     file_name = request.GET.get('file_name')
-    file_path = ('user/files/' + file_name + '.txt')
+    file_path = ('user/files/' + request.user.username + '/' + file_name + '.txt')
     info = get_keyword_info(file_path)
     print(info)
     return render(request, 'keyword_extraction.html', {'content' : info})
