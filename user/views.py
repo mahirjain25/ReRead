@@ -34,7 +34,9 @@ def userHomePage(request):
 
 	if not(os.path.isdir('user/files/'+request.user.username)):
 		os.mkdir('user/files/'+request.user.username)
-	return render(request,'user_home.html', {'username' : request.user.username})
+	
+	file_list = os.listdir('user/files/'+request.user.username)
+	return render(request,'user_home.html', {'files' : file_list})
 	
 @login_required(redirect_field_name='login')
 def logout_page(request):
