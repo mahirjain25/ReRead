@@ -44,9 +44,18 @@
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#services">Services</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#contact">Sign Up</a>
-            </li>
+            {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="{% url 'logout' %}">Logout</a>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="{% url 'login' %}">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="{% url 'signup' %}">Sign Up</a>
+              </li>
+            {% endif %}
           </ul>
         </div>
       </div>
@@ -122,21 +131,6 @@
           </div>
         </div>
       </div>
-    </section>
-
-
-  
-    <section id="contact" class="bg-primary">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 mx-auto text-center">
-            <h2 class="section-heading">Let's Get You Started!</h2>
-            <hr class="my-4">
-            <p class="mb-5">Ready to take it to the next level with us? Sign up for free now and begin your journey with ReRead!</p>
-            <a class="btn btn-light btn-xl js-scroll-trigger" href="{% url 'login' %}">LOGIN</a>
-            <a class="btn btn-light btn-xl js-scroll-trigger" href="{% url 'signup' %}">SIGN UP</a>
-          </div>
-        </div>
     </section>
 
     <!-- Bootstrap core JavaScript -->
