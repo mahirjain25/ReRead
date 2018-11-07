@@ -262,34 +262,36 @@
                         </div>
                     </div> -->
 
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <div class="card ">
                             <div class="header">
-                                <h4 class="title">User Files</h4>
+                                <h4 class="title">Your Files</h4>
                     <!--             <p class="category">Backend development</p> -->
                             </div>
                             <div class="content">
-                                <div class="table-full-width">
+                                <div class="table-full-width" style = "overflow-y:scroll;height:300px;display:block;">
                                     <table class="table">
                                         <tbody>
+                                            {% for file in files %}
                                             <tr>
-                                                <td>
+                                               <!--  <td>
 													<div class="checkbox">
 						  							  	<input id="checkbox1" type="checkbox">
 						  							  	<label for="checkbox1"></label>
 					  						  		</div>
-                                                </td>
-                                                <td>Sign contract for "What are conference organizers afraid of?"</td>
-                                                <td class="td-actions text-right">
+                                                </td> -->
+                                                <td style="text-align: center;"><button type="button" id="file_button_{{ forloop.counter }}" class="btn btn-default" data-toggle="modal" data-target="#myModal" value="{{ file }}">{{ file }}</button></td>
+                                                <!-- <td class="td-actions text-right">
                                                     <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
                                                         <i class="fa fa-edit"></i>
                                                     </button>
                                                     <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
                                                         <i class="fa fa-times"></i>
                                                     </button>
-                                                </td>
+                                                </td> -->
                                             </tr>
-                                            <tr>
+                                            {% endfor %}
+                                            <!-- <tr>
                                                 <td>
 													<div class="checkbox">
 						  							  	<input id="checkbox2" type="checkbox" checked>
@@ -374,7 +376,7 @@
                                                         <i class="fa fa-times"></i>
                                                     </button>
                                                 </td>
-                                            </tr>
+                                            </tr> -->
                                         </tbody>
                                     </table>
                                 </div>
@@ -428,6 +430,26 @@
     </div>
 </div>
 
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" style="text-align: center;">File Content</h4>
+      </div>
+      <div class="modal-body">
+        <p id="myModalBody"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" id="modal_close_button">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 
 </body>
 
@@ -450,7 +472,12 @@
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 	<script src="/static/dashboard/js/demo.js"></script>
 
+    <script src="/static/dashboard/js/jquery.cookie.js"></script>
+
+    {% csrf_token %}
 	<script type="text/javascript">
+        var csrftoken = $.cookie('csrftoken');
+
     	$(document).ready(function(){
 
         	demo.initChartist();
@@ -465,6 +492,45 @@
             });
 
     	});
+
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+
+        $("[id^=file_button]").click(function(e){
+            console.log('click button')
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url : "{% url 'user_home' %}",
+                data: { 'name' : $(this).val() },
+                success: function(result){
+                    console.log(result)
+                    if(result.file_content){
+                        document.getElementById("myModalBody").innerHTML = result.file_content;                        
+                    }
+                    else{
+                        document.getElementById("myModalBody").innerHTML = "<i>File is empty</i>";
+                    }
+                }
+            })
+        })
+
+        $("#myModal").on('hidden.bs.modal', function(){
+            console.log('close modal')
+            document.getElementById("myModalBody").innerHTML = "";
+        })
+
+
 	</script>
 
 </html>
