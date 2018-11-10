@@ -45,34 +45,40 @@
 
     	<div class="sidebar-wrapper">
             <div class="logo">
-                <a href="http://www.creative-tim.com" class="simple-text">
-                    {{ username }}
+                <a href="#" class="simple-text">
+                    Welcome, {{ username }}
                 </a>
             </div>
 
             <ul class="nav">
                 <li class="active">
-                    <a href="dashboard.html">
+                    <a href="/user/upload">
                         <i class="pe-7s-graph"></i>
-                        <p>Dashboard</p>
+                        <p>Upload a file</p>
                     </a>
                 </li>
                 <li>
-                    <a href="user.html">
+                    <a href="#">
                         <i class="pe-7s-user"></i>
-                        <p>User Profile</p>
+                        <p>My Profile</p>
                     </a>
                 </li>
                 <li>
-                    <a href="table.html">
+                    <a href="#">
+                        <i class="pe-7s-user"></i>
+                        <p>Summarisation</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
                         <i class="pe-7s-note2"></i>
-                        <p>Table List</p>
+                        <p>Keyword Extraction</p>
                     </a>
                 </li>
                 <li>
                     <a href="typography.html">
                         <i class="pe-7s-news-paper"></i>
-                        <p>Typography</p>
+                        <p>Grammarnazi</p>
                     </a>
                 </li>
                 <li>
@@ -81,29 +87,12 @@
                         <p>Icons</p>
                     </a>
                 </li>
-                <li>
-                    <a href="maps.html">
-                        <i class="pe-7s-map-marker"></i>
-                        <p>Maps</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="notifications.html">
-                        <i class="pe-7s-bell"></i>
-                        <p>Notifications</p>
-                    </a>
-                </li>
-				<li class="active-pro">
-                    <a href="upgrade.html">
-                        <i class="pe-7s-rocket"></i>
-                        <p>Upgrade to PRO</p>
-                    </a>
-                </li>
             </ul>
     	</div>
     </div>
 
     <div class="main-panel">
+        <!--
         <nav class="navbar navbar-default navbar-fixed">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -113,7 +102,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Dashboard</a>
+                    <a class="navbar-brand" href="/">ReRead</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
@@ -182,91 +171,16 @@
                 </div>
             </div>
         </nav>
+    -->
 
 
-        <div class="content">
-            <div class="container-fluid">
+        <div class="content" style="background-image: url('/static/dashboard/img/bg.jpg'); background-size: cover;background-repeat: no-repeat;background-position: center center;">
+            <div class="container-fluid" data-color = "red">
                 <div class="row">
-                    <!-- <div class="col-md-4">
-                        <div class="card">
-
-                            <div class="header">
-                                <h4 class="title">Email Statistics</h4>
-                                <p class="category">Last Campaign Performance</p>
-                            </div>
-                            <div class="content">
-                                <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
-
-                                <div class="footer">
-                                    <div class="legend">
-                                        <i class="fa fa-circle text-info"></i> Open
-                                        <i class="fa fa-circle text-danger"></i> Bounce
-                                        <i class="fa fa-circle text-warning"></i> Unsubscribe
-                                    </div>
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="fa fa-clock-o"></i> Campaign sent 2 days ago
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-
-                    <!-- <div class="col-md-8">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Users Behavior</h4>
-                                <p class="category">24 Hours performance</p>
-                            </div>
-                            <div class="content">
-                                <div id="chartHours" class="ct-chart"></div>
-                                <div class="footer">
-                                    <div class="legend">
-                                        <i class="fa fa-circle text-info"></i> Open
-                                        <i class="fa fa-circle text-danger"></i> Click
-                                        <i class="fa fa-circle text-warning"></i> Click Second Time
-                                    </div>
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="fa fa-history"></i> Updated 3 minutes ago
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                </div>
-
-
-
-                <div class="row">
-                    <!-- <div class="col-md-6">
-                        <div class="card ">
-                            <div class="header">
-                                <h4 class="title">2014 Sales</h4>
-                                <p class="category">All products including Taxes</p>
-                            </div>
-                            <div class="content">
-                                <div id="chartActivity" class="ct-chart"></div>
-
-                                <div class="footer">
-                                    <div class="legend">
-                                        <i class="fa fa-circle text-info"></i> Tesla Model S
-                                        <i class="fa fa-circle text-danger"></i> BMW 5 Series
-                                    </div>
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="fa fa-check"></i> Data information certified
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-
                     <div class="col-md-3">
                         <div class="card ">
                             <div class="header">
                                 <h4 class="title">Your Files</h4>
-                    <!--             <p class="category">Backend development</p> -->
                             </div>
                             <div class="content">
                                 <div class="table-full-width" style = "overflow-y:scroll;height:300px;display:block;">
@@ -291,102 +205,24 @@
                                                 </td> -->
                                             </tr>
                                             {% endfor %}
-                                            <!-- <tr>
-                                                <td>
-													<div class="checkbox">
-						  							  	<input id="checkbox2" type="checkbox" checked>
-						  							  	<label for="checkbox2"></label>
-					  						  		</div>
-                                                </td>
-                                                <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-                                                <td class="td-actions text-right">
-                                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                        <i class="fa fa-times"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-													<div class="checkbox">
-						  							  	<input id="checkbox3" type="checkbox">
-						  							  	<label for="checkbox3"></label>
-					  						  		</div>
-                                                </td>
-                                                <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-												</td>
-                                                <td class="td-actions text-right">
-                                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                        <i class="fa fa-times"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-													<div class="checkbox">
-						  							  	<input id="checkbox4" type="checkbox" checked>
-						  							  	<label for="checkbox4"></label>
-					  						  		</div>
-                                                </td>
-                                                <td>Create 4 Invisible User Experiences you Never Knew About</td>
-                                                <td class="td-actions text-right">
-                                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                        <i class="fa fa-times"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-													<div class="checkbox">
-						  							  	<input id="checkbox5" type="checkbox">
-						  							  	<label for="checkbox5"></label>
-					  						  		</div>
-                                                </td>
-                                                <td>Read "Following makes Medium better"</td>
-                                                <td class="td-actions text-right">
-                                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                        <i class="fa fa-times"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-													<div class="checkbox">
-						  							  	<input id="checkbox6" type="checkbox" checked>
-						  							  	<label for="checkbox6"></label>
-					  						  		</div>
-                                                </td>
-                                                <td>Unfollow 5 enemies from twitter</td>
-                                                <td class="td-actions text-right">
-                                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                        <i class="fa fa-times"></i>
-                                                    </button>
-                                                </td>
-                                            </tr> -->
                                         </tbody>
                                     </table>
                                 </div>
-
-                                <div class="footer">
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="fa fa-history"></i> Updated 3 minutes ago
-                                    </div>
-                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="card">
+                            <div class="header">
+                                <h2 class="title" style="text-align: center;"><b>Using the ReRead Tool</b></h4>
+                            </div>
+                            <div class="content" style="text-align: center">
+                                <h4><b>Welcome to your ReRead Dashboard!</b></h4>
+                                <h5><b>Explore the different features from the sidebar on the left end of the webpage.</b></h5>
+                                <h5><b>Please note that you must upload atleast 1 file to make use of any service.</b></h5>
+                                <h5><b>We do not store your files permanently. All the data is erased as soon as you logout, so that your research work remains truly yours and is secure.</b></h5>
+                                <h5><b>Please upload text documents only. We will soon add support for other formats as well.</b></h5>
+                                <h5><b>We focus more on your content, rather than the formatting, and hence the restriction on file formats for upload.</b></h5>
                             </div>
                         </div>
                     </div>

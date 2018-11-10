@@ -15,6 +15,7 @@ from gensim.summarization import keywords
 from bs4 import BeautifulSoup
 import requests
 import time
+from django.contrib.auth import logout
 
 
 import os
@@ -36,12 +37,13 @@ def userHomePage(request):
 		os.mkdir('user/files/'+request.user.username)
 	
 	file_list = os.listdir('user/files/'+request.user.username)
-	return render(request,'user_home.html', {'files' : file_list})
+	return render(request,'user_home.html', {'files' : file_list,'username':request.user.username})
 	
 @login_required(redirect_field_name='login')
 def logout_page(request):
 	os.system("rm -rf "+os.getcwd()+"/user/files/"+request.user.username)
-	return HttpResponseRedirect('/#')
+	logout(request)
+	return HttpResponseRedirect('/')
 
 
 @login_required(redirect_field_name='login')
