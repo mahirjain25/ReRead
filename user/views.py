@@ -8,7 +8,7 @@ from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from urllib.parse import urlencode
-from .views import *
+# from .views import *
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from gensim.summarization import keywords
@@ -24,6 +24,16 @@ import sys
 from sys import argv
 import nltk
 import language_check
+
+# for querying arxiv
+import time
+import pickle
+import random
+import argparse
+import urllib.request as request
+import feedparser
+import http
+
 
 # Create your views here.
 @login_required(redirect_field_name='login')
@@ -117,6 +127,7 @@ def grammarChecker(filepath):
 	new_f.write(s)
 	new_f.close()
 
+
 @login_required(redirect_field_name='login')
 def displaySummaryView(request):
 	if request.method == 'GET':
@@ -165,5 +176,34 @@ def get_keyword_info(FILE_PATH):
 	return word_link_dict
 
 # ==============================================================
+
+
+
+
+# parse input arguments
+def get_relevant_papers(keyword_string):
+
+    base_url = 'http://export.arxiv.org/api/query?' # base api query url
+    print('Searching arXiv for %s' % (keyword_string, ))
+
+    query = 'search_query=%s&sortBy=lastUpdatedDate' % (keyword_string)
+
+
+    with request.urlopen(base_url+query) as answer:
+	    parse = feedparser.parse(answer)
+
+    ans = {}
+	
+    for e in parse.entries:
+	    ans[e.title] = e.id
+
+
+    if len(parse.entries) == 0:
+	    print('Received no results from arxiv. Rate limiting? Exiting. Restart later maybe.')
+	    # print(answer)
+	    
+
+    return ans
+
 
 
