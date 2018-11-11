@@ -1,19 +1,63 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Keywords</title>
-</head>
-<body>
-	<ul>
-	{% for key,value in content.items %}
-		<li> {{ key }}
-			<ul>
-				{% for link in value %}
-					<li>{{ link }}</li>
-				{% endfor %}
-			</ul>
-		</li>
-	{% endfor %}
-	</ul>
-</body>
-</html>
+{% extends 'extender.html' %}                         
+{% block content %}
+<title>Keyword Extraction</title>
+{% if content|length > 0 %}
+<div class="col-md-6" style="align-self: center;">
+	<div class="card">
+		<div class="header">
+			<h4 class="title">Keywords and References</h4>
+		</div>
+		<div class="content">
+			<div class="table-full-width" style="overflow-y: scroll;height: 300px;display: block;" id="links">
+				<table class="table" style="text-align: center;">
+					<thead style="text-align: center;">
+						<tr>
+							<th>Keyword</th>
+							<th>Links</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for key,value in content.items %}
+						<tr>
+							<td rowspan="{{ value|length|add:1 }}"><h5><b>{{ key }}</b></h5></td>
+							<td>
+								{% for link in value %}
+									<tr>
+										<td><a href="{{ link }}">Link {{ forloop.counter }}</a></td>
+									</tr>
+								{% endfor %}
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}
+<div class="col-md-12">
+	<div class="card">
+	    <div class="header">
+	        <h4 class="title">Choose a File to Extract Keywords</h4>
+	    </div>
+	    <div class="content">
+	        <div class="table-full-width" style = "overflow-y:scroll;height:300px;display:block;" id="file_names">
+	            <table class="table">
+	                <tbody>
+	                	<tr>
+	                		<th style="text-align: center;">File Name</th>
+	                	</tr>
+	                    {% for file in files %}
+	                    <tr>
+	                        <input style="display: none;" value="{{ file }}" name="filename"><td style="text-align: center;"><button type="button" id="file_button_{{ forloop.counter }}" class="btn btn-default" data-toggle="modal" data-target="#myModal" value="{{ file }}" name="filename">{{ file }}</button></td>
+	                        <td><a href = "/user/keywords?filename={{ file }}"><button class="btn btn-info" type="submit">Extract</button></a></td>
+	                    </tr>
+	                    {% endfor %}
+	                </tbody>
+	            </table>
+	        </div>
+	    </div>
+	</div>
+</div>
+{% endblock %}

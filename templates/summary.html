@@ -10,15 +10,19 @@
 	        <div class="table-full-width" style = "overflow-y:scroll;height:300px;display:block;" id="file_names">
 	            <table class="table">
 	                <tbody>
+	                	<tr>
+	                		<th style="text-align: center;">File Name</th>
+	                		<th>Shrink To (Percentage of Original)</th>
+	                	</tr>
 	                    {% for file in files %}
 	                    <tr>
 	                        <input style="display: none;" value="{{ file }}" name="filename"><td style="text-align: center;"><button type="button" id="file_button_{{ forloop.counter }}" class="btn btn-default" data-toggle="modal" data-target="#myModal" value="{{ file }}" name="filename">{{ file }}</button></td>
-	                        <td><a href="/user/display_summary?filename={{ file }}"><button class="btn btn-info" type="submit">Process</button></a></td>
+	                        <td><input id='pct_{{ file }}' name="percentage" placeholder="Enter Percentage (1-100)"></td>
+	                        <td><a href='' onclick="this.href='/user/display_summary?filename={{ file }}&pct='+document.getElementById('pct_{{ file }}').value"><button class="btn btn-info" type="submit">Process</button></a></td>
 	                    </tr>
 	                    {% endfor %}
 	                </tbody>
 	            </table>
-	        </form>
 	        </div>
 	    </div>
 	</div>

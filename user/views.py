@@ -85,22 +85,6 @@ def handle_uploaded_file(username, f, file_name):
 			destination.write(chunk)  
 
 
-
-def createSummaryFromFile(filepath,len_pct):
-	inputFile, file_extension = filepath.split('.')
-	print(inputFile)
-	# if the input file is a pdf file
-	if file_extension == "pdf":
-		cmd = "pdftotext %s %s" % (inputFile + '.' + file_extension, inputFile + ".txt")
-		os.system(cmd)
-		inputFile = inputFile + ".txt"
-
-	outputFile = inputFile + '_abtracted.txt'
-	print(outputFile)
-	bashCommand = "sumy lex-rank --length={}% --file={} >> {}".format(len_pct, inputFile+'.txt', outputFile)
-
-	os.system(bashCommand)
-
 def grammarChecker(filepath):
 	inputFile, file_extension = filepath.split('.')
 	out_file = inputFile + '_grammar_corrected.txt'
@@ -121,28 +105,55 @@ def grammarChecker(filepath):
 	new_f.write(s)
 	new_f.close()
 
+# ==================== Summarisation ===========================
+
+def createSummaryFromFile(filepath,len_pct,username):
+	inputFile, file_extension = filepath.split('.')
+	# if the input file is a pdf file
+	if file_extension == "pdf":
+		cmd = "pdftotext %s %s" % (inputFile + '.' + file_extension, inputFile + ".txt")
+		os.system(cmd)
+		inputFile = inputFile + ".txt"
+
+	input_file_name = inputFile.split('/')[-1]
+	outputFile = input_file_name + '_abtracted.txt'
+	bashCommand = "sumy lex-rank --length={}% --file={} >> {}".format(len_pct, input_file_name+'.txt', outputFile)
+	curr_dir = os.getcwd()
+	os.chdir("user/files/"+username+"/")
+	os.system(bashCommand)
+	print(bashCommand, os.getcwd())
+	os.chdir(curr_dir)
 
 @login_required(redirect_field_name='login')
 def displaySummaryView(request):
 	if request.method == 'GET':
-		pct = 30
 		if request.GET.urlencode() == "":
 			file_list = os.listdir('user/files/'+request.user.username)
 			return render(request,'summary.html', {'files' : file_list,'username':request.user.username})
 		else:
 			filename = request.GET.get('filename','')
-			print(filename)
+			pct = request.GET.get('pct','')
+			pct = int(pct)
+			print(filename, pct)
 			filepath = "/user/files/" + request.user.username + "/" + filename
-			createSummaryFromFile(filepath,pct)
+			createSummaryFromFile(filepath,pct,request.user.username)
 			return HttpResponseRedirect("/user")
+
+# ==============================================================
+
 
 @login_required(redirect_field_name='login')
 def keywordView(request):
-	file_name = request.GET.get('file_name')
-	file_path = ('user/files/' + request.user.username + '/' + file_name + '.txt')
-	info = get_keyword_info(file_path)
-	print(info)
-	return render(request, 'keyword_extraction.html', {'content' : info})
+	if request.method == 'GET':
+		file_list = os.listdir('user/files/'+request.user.username)
+		if request.GET.urlencode() == "":
+			return render(request,'keyword_extraction.html', {'files': file_list,'content':{}, 'username': request.user.username})
+		else:
+			file_name = request.GET.get('filename')
+			file_path = ('user/files/' + request.user.username + '/' + file_name)
+			info = get_keyword_info(file_path)
+			print(info)
+			return render(request, 'keyword_extraction.html', {'files':file_list, 'content' : info,'username':request.user.username})
 
 # ================ KeyWord Extraction Functions ================
 
@@ -162,7 +173,7 @@ def get_google_links(string):
 	for link in links:
 		if link.find('a') is not None:
 			link_list.append(link.find('a')['href'][7:])
-	return link_list
+	return link_list[0:3]
 
 def get_keyword_info(FILE_PATH):
 	word_list = get_keywords(FILE_PATH)
