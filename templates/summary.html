@@ -1,6 +1,26 @@
-<html>
-    <title>Generate Summary</title>
-    <form>
-        
-    </form>
-</html>
+{% extends 'extender.html' %}                         
+{% block content %}
+<title>Create Summary</title>
+<div class="col-md-12">
+	<div class="card">
+	    <div class="header">
+	        <h4 class="title">Choose a File to Process</h4>
+	    </div>
+	    <div class="content">
+	        <div class="table-full-width" style = "overflow-y:scroll;height:300px;display:block;" id="file_names">
+	            <table class="table">
+	                <tbody>
+	                    {% for file in files %}
+	                    <tr>
+	                        <input style="display: none;" value="{{ file }}" name="filename"><td style="text-align: center;"><button type="button" id="file_button_{{ forloop.counter }}" class="btn btn-default" data-toggle="modal" data-target="#myModal" value="{{ file }}" name="filename">{{ file }}</button></td>
+	                        <td><a href="/user/display_summary?filename={{ file }}"><button class="btn btn-info" type="submit">Process</button></a></td>
+	                    </tr>
+	                    {% endfor %}
+	                </tbody>
+	            </table>
+	        </form>
+	        </div>
+	    </div>
+	</div>
+</div>
+{% endblock %}
