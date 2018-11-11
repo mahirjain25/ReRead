@@ -97,7 +97,7 @@ def createSummaryFromFile(filepath,len_pct):
 
 	outputFile = inputFile + '_abtracted.txt'
 	print(outputFile)
-	bashCommand = "sumy lex-rank --length={}% --file={} > {}".format(len_pct, inputFile+'.txt', outputFile)
+	bashCommand = "sumy lex-rank --length={}% --file={} >> {}".format(len_pct, inputFile+'.txt', outputFile)
 
 	os.system(bashCommand)
 
@@ -132,6 +132,8 @@ def displaySummaryView(request):
 		else:
 			filename = request.GET.get('filename','')
 			print(filename)
+			filepath = "/user/files/" + request.user.username + "/" + filename
+			createSummaryFromFile(filepath,pct)
 			return HttpResponseRedirect("/user")
 
 @login_required(redirect_field_name='login')
