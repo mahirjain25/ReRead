@@ -70,7 +70,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/user/display_summary">
                         <i class="pe-7s-filter"></i>
                         <p>Summarisation</p>
                     </a>
@@ -170,62 +170,60 @@
                 </div>
             </div>
         </nav>
-
-
-        <div class="content" style="background-image: url('/static/dashboard/img/bg1.jpg'); background-size: cover;background-repeat: no-repeat;background-position: center center;">
-            <div class="container-fluid" data-color = "red">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="card" style="background-image: url('/static/dashboard/img/bg3.jpg'); background-size: cover;background-repeat: no-repeat;background-position: center center;">
-                            <div class="header">
-                                <h4 class="title">Your Files</h4>
-                            </div>
-                            <div class="content">
-                                <div class="table-full-width" style = "overflow-y:scroll;height:300px;display:block;">
-                                    <table class="table">
-                                        <tbody>
-                                            {% for file in files %}
-                                            <tr>
-                                               <!--  <td>
-													<div class="checkbox">
-						  							  	<input id="checkbox1" type="checkbox">
-						  							  	<label for="checkbox1"></label>
-					  						  		</div>
-                                                </td> -->
-                                                <td style="text-align: center;"><button type="button" id="file_button_{{ forloop.counter }}" class="btn btn-default" data-toggle="modal" data-target="#myModal" value="{{ file }}">{{ file }}</button></td>
-                                                <!-- <td class="td-actions text-right">
-                                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                    <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                        <i class="fa fa-times"></i>
-                                                    </button>
-                                                </td> -->
-                                            </tr>
-                                            {% endfor %}
-                                        </tbody>
-                                    </table>
+            <div class="content" style="background-image: url('/static/dashboard/img/bg1.jpg'); background-size: cover;background-repeat: no-repeat;background-position: center center;">
+                <div class="container-fluid" data-color = "red">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="header">
+                                    <h4 class="title">Your Files</h4>
+                                </div>
+                                <div class="content">
+                                    <div class="table-full-width" style = "overflow-y:scroll;height:300px;display:block;" id="file_names">
+                                        <table class="table">
+                                            <tbody>
+                                                {% for file in files %}
+                                                <tr>
+                                                   <!--  <td>
+    													<div class="checkbox">
+    						  							  	<input id="checkbox1" type="checkbox">
+    						  							  	<label for="checkbox1"></label>
+    					  						  		</div>
+                                                    </td> -->
+                                                    <td style="text-align: center;"><button type="button" id="file_button_{{ forloop.counter }}" class="btn btn-default" data-toggle="modal" data-target="#myModal" value="{{ file }}">{{ file }}</button></td>
+                                                    <!-- <td class="td-actions text-right">
+                                                        <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
+                                                            <i class="fa fa-edit"></i>
+                                                        </button>
+                                                        <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                    </td> -->
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="card" style="background-image: url('/static/dashboard/img/bg4.png'); background-size: cover;background-repeat: no-repeat;background-position: center center;">
-                            <div style="text-align: center;color:white;">
-                                <h2 class="title"><b>Using the ReRead Tool</b></h2>
-                                <h3><b>Welcome to your ReRead Dashboard!</b></h3>
-                                <h4><b>Explore the different features from the sidebar on the left end of the webpage.</b></h4>
-                                <h4><b>Please note that you must upload atleast 1 file to make use of any service.</b></h4>
-                                <h5><b>We do not store your files permanently. All the data is erased as soon as you logout, so that your research work remains truly yours and is secure.</b></h5>
-                                <h5><b>Please upload text documents only. We will soon add support for other formats as well.</b></h5>
-                                <h5><b>We focus more on your content, rather than the formatting, and hence the restriction on file formats for upload.</b></h5>
+                        <div class="col-md-9">
+                            <div class="card">
+                                <div style="text-align: center;color:white;">
+                                    <h2 class="title"><b>Using the ReRead Tool</b></h2>
+                                    <h3><b>Welcome to your ReRead Dashboard!</b></h3>
+                                    <h4><b>Explore the different features from the sidebar on the left end of the webpage.</b></h4>
+                                    <h4><b>Please note that you must upload atleast 1 file to make use of any service.</b></h4>
+                                    <h5><b>We do not store your files permanently. All the data is erased as soon as you logout, so that your research work remains truly yours and is secure.</b></h5>
+                                    <h5><b>Please upload text documents only. We will soon add support for other formats as well.</b></h5>
+                                    <h5><b>We focus more on your content, rather than the formatting, and hence the restriction on file formats for upload.</b></h5>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
+    
 
         <footer class="footer">
                 <h4 style="text-align: center;">

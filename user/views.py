@@ -97,7 +97,7 @@ def createSummaryFromFile(filepath,len_pct):
 
 	outputFile = inputFile + '_abtracted.txt'
 	print(outputFile)
-	bashCommand = "sumy lex-rank --length={}% --file={} > {}".format(len_pct, inputFile+'.txt', outputFile)
+	bashCommand = "sumy lex-rank --length={}% --file={} >> {}".format(len_pct, inputFile+'.txt', outputFile)
 
 	os.system(bashCommand)
 
@@ -125,12 +125,16 @@ def grammarChecker(filepath):
 @login_required(redirect_field_name='login')
 def displaySummaryView(request):
 	if request.method == 'GET':
-		file_path = '/user/files/'+request.user.username+'/ball_article.txt'
 		pct = 30
-		createSummaryFromFile(file_path,pct)
-		with open(file_path[:-4] + '_abstracted.txt') as f:
-			data = f.read()
-		return render(request, 'display_uploaded_file.html', {'content' : data})
+		if request.GET.urlencode() == "":
+			file_list = os.listdir('user/files/'+request.user.username)
+			return render(request,'summary.html', {'files' : file_list,'username':request.user.username})
+		else:
+			filename = request.GET.get('filename','')
+			print(filename)
+			filepath = "/user/files/" + request.user.username + "/" + filename
+			createSummaryFromFile(filepath,pct)
+			return HttpResponseRedirect("/user")
 
 @login_required(redirect_field_name='login')
 def keywordView(request):
@@ -177,27 +181,27 @@ def get_keyword_info(FILE_PATH):
 # parse input arguments
 def get_relevant_papers(keyword_string):
 
-    base_url = 'http://export.arxiv.org/api/query?' # base api query url
-    print('Searching arXiv for %s' % (keyword_string, ))
+	base_url = 'http://export.arxiv.org/api/query?' # base api query url
+	print('Searching arXiv for %s' % (keyword_string, ))
 
-    query = 'search_query=%s&sortBy=lastUpdatedDate' % (keyword_string)
+	query = 'search_query=%s&sortBy=lastUpdatedDate' % (keyword_string)
 
 
-    with request.urlopen(base_url+query) as answer:
-	    parse = feedparser.parse(answer)
+	with request.urlopen(base_url+query) as answer:
+		parse = feedparser.parse(answer)
 
-    ans = {}
+	ans = {}
 	
-    for e in parse.entries:
-	    ans[e.title] = e.id
+	for e in parse.entries:
+		ans[e.title] = e.id
 
 
-    if len(parse.entries) == 0:
-	    print('Received no results from arxiv. Rate limiting? Exiting. Restart later maybe.')
-	    # print(answer)
-	    
+	if len(parse.entries) == 0:
+		print('Received no results from arxiv. Rate limiting? Exiting. Restart later maybe.')
+		# print(answer)
+		
 
-    return ans
+	return ans
 
 
 
