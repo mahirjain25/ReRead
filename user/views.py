@@ -33,6 +33,9 @@ def userHomePage(request):
 		}
 		return JsonResponse(result)
 
+	if not(os.path.isdir('user/files/')):
+		os.mkdir('user/files/')
+
 	if not(os.path.isdir('user/files/'+request.user.username)):
 		os.mkdir('user/files/'+request.user.username)
 	
@@ -86,9 +89,13 @@ def createSummaryFromFile(filepath,len_pct):
 
 	outputFile = inputFile + '_abtracted.txt'
 	print(outputFile)
-	bashCommand = "sumy lex-rank --length={}% --file={} >> {}".format(len_pct, inputFile+'.txt', outputFile)
+	bashCommand = "sumy lex-rank --length={}% --file={} > {}".format(len_pct, inputFile+'.txt', outputFile)
 
 	os.system(bashCommand)
+
+
+
+	
 
 
 @login_required(redirect_field_name='login')
