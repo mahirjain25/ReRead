@@ -21,6 +21,10 @@ from django.contrib.auth import logout
 import os
 import sys
 
+from sys import argv
+import nltk
+import language_check
+
 # Create your views here.
 @login_required(redirect_field_name='login')
 def userHomePage(request):
@@ -83,7 +87,7 @@ def createSummaryFromFile(filepath,len_pct):
 	print(inputFile)
 	# if the input file is a pdf file
 	if file_extension == "pdf":
-		cmd = "pdftotext %s %s" % (inputFile, inputFile + ".txt")
+		cmd = "pdftotext %s %s" % (inputFile + '.' + file_extension, inputFile + ".txt")
 		os.system(cmd)
 		inputFile = inputFile + ".txt"
 
@@ -93,10 +97,25 @@ def createSummaryFromFile(filepath,len_pct):
 
 	os.system(bashCommand)
 
+def grammarChecker(filepath):
+	inputFile, file_extension = filepath.split('.')
+	out_file = inputFile + '_grammar_corrected.txt'
 
+	if file_extension == "pdf":
+		cmd = "pdftotext %s %s" % (inputFile + '.' + file_extension, inputFile + ".txt")
+		os.system(cmd)
 
-	
+	f = open(inputFile + '.txt', 'r')
 
+	s = f.read()
+	tool = language_check.LanguageTool('en-US')
+	matches = tool.check(s)
+	language_check.correct(s, matches)
+	f.close()
+
+	new_f = open(out_file, 'w')
+	new_f.write(s)
+	new_f.close()
 
 @login_required(redirect_field_name='login')
 def displaySummaryView(request):
