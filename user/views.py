@@ -23,7 +23,7 @@ import sys
 
 from sys import argv
 import nltk
-#import language_check
+import language_check
 
 # for querying arxiv
 import urllib.request as request
@@ -84,16 +84,17 @@ def handle_uploaded_file(username, f, file_name):
 		for chunk in f.chunks():
 			destination.write(chunk)  
 
-
-def grammarChecker(filepath):
+def grammarChecker(filepath,username):
 	inputFile, file_extension = filepath.split('.')
-	out_file = inputFile + '_grammar_corrected.txt'
-
+	input_file_name = inputFile.split("/")[-1]
+	out_file = input_file_name + '_grammar_corrected.txt'
+	curr_dir = os.getcwd()
+	os.chdir("user/files/"+username+"/")
 	if file_extension == "pdf":
-		cmd = "pdftotext %s %s" % (inputFile + '.' + file_extension, inputFile + ".txt")
+		cmd = "pdftotext %s %s" % (input_file_name + '.' + file_extension, input_file_name + ".txt")
 		os.system(cmd)
 
-	f = open(inputFile + '.txt', 'r')
+	f = open(input_file_name + '.txt', 'r')
 
 	s = f.read()
 	tool = language_check.LanguageTool('en-US')
@@ -104,6 +105,20 @@ def grammarChecker(filepath):
 	new_f = open(out_file, 'w')
 	new_f.write(s)
 	new_f.close()
+	os.chdir(curr_dir)
+
+
+@login_required(redirect_field_name='login')
+def grammarCheckerView(request):
+	if request.method == 'GET':
+		if request.GET.urlencode() == "":
+			file_list = os.listdir('user/files/'+request.user.username)
+			return render(request,'grammar.html', {'files' : file_list,'username':request.user.username})
+		else:
+			filename = request.GET.get('filename','')
+			filepath = "/user/files/"+request.user.username+"/"+filename
+			grammarChecker(filepath,request.user.username)
+			return HttpResponseRedirect("/user")
 
 # ==================== Summarisation ===========================
 
@@ -142,6 +157,8 @@ def displaySummaryView(request):
 # ==============================================================
 
 
+# ================ KeyWord Extraction Functions ================
+
 @login_required(redirect_field_name='login')
 def keywordView(request):
 	if request.method == 'GET':
@@ -155,7 +172,6 @@ def keywordView(request):
 			print(info)
 			return render(request, 'keyword_extraction.html', {'files':file_list, 'content' : info,'username':request.user.username})
 
-# ================ KeyWord Extraction Functions ================
 
 def get_keywords(file_path):
 	fp = open(file_path, 'r+')
