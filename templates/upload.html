@@ -1,16 +1,15 @@
-<html>
-	<head>
-		<title>File upload</title>
-		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    </head>
-    <body>
-		<form method="post" enctype="multipart/form-data">
-		{% csrf_token %}
-		{{ form.as_p }}
-		<button type="submit">Upload</button>
+{% extends 'extender.html' %}                         
+{% block content %}
+<title>Upload File</title>
+<div class="col-md-12">
+	<div class = "card" style="align-content: center;text-align: center;">
+		<form method="post" enctype="multipart/form-data" style="display: inline-block;">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<button type="submit">Upload</button>
 		</form>
 
-  		<p><a href="{% url 'home' %}">Return to home</a></p>
-  	</body>
-  </html>
+		<p><a href="{% url 'home' %}">Return to home</a></p>
+	</div>
+</div>
+{% endblock %}
