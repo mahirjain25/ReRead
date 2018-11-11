@@ -8,13 +8,13 @@ out_file = argv[2]
 f = open(inp_file, 'r')
 
 s = f.read()
-# print(s)
+print(s)
 
 tool = language_check.LanguageTool('en-US')
 matches = tool.check(s)
-
-language_check.correct(s, matches)
-
+print(matches)
+s = language_check.correct(s, matches)
+print("Corrected: ", s )
 f.close()
 
 new_f = open(out_file, 'w')

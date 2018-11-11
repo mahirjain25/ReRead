@@ -99,7 +99,7 @@ def grammarChecker(filepath,username):
 	s = f.read()
 	tool = language_check.LanguageTool('en-US')
 	matches = tool.check(s)
-	language_check.correct(s, matches)
+	s = language_check.correct(s, matches)
 	f.close()
 
 	new_f = open(out_file, 'w')
