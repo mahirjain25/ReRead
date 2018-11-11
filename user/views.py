@@ -23,16 +23,10 @@ import sys
 
 from sys import argv
 import nltk
-import language_check
+#import language_check
 
 # for querying arxiv
-import time
-import pickle
-import random
-import argparse
 import urllib.request as request
-import feedparser
-import http
 
 
 # Create your views here.
