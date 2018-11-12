@@ -1,28 +1,33 @@
 {% extends 'extender.html' %}                         
 {% block content %}
 <title>Correct Grammar</title>
-<div class="col-md-12">
-	<div class="card">
-	    <div class="header">
-	        <h4 class="title">Choose a File to Process</h4>
-	    </div>
-	    <div class="content">
-	        <div class="table-full-width" style = "overflow-y:scroll;height:300px;display:block;" id="file_names">
-	            <table class="table">
-	                <tbody>
-	                	<tr>
-	                		<th style="text-align: center;">File Name</th>
-	                	</tr>
-	                    {% for file in files %}
-	                    <tr>
-	                        <input style="display: none;" value="{{ file }}" name="filename"><td style="text-align: center;"><button type="button" id="file_button_{{ forloop.counter }}" class="btn btn-default" data-toggle="modal" data-target="#myModal" value="{{ file }}" name="filename">{{ file }}</button></td>
-	                        <td><a href="/user/grammar_check?filename={{ file }}"><button class="btn btn-info" type="submit">Correct It!</button></a></td>
-	                    </tr>
-	                    {% endfor %}
-	                </tbody>
-	            </table>
-	        </div>
-	    </div>
+<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+		<div class="card" style="background: #222; color: white">
+		    <div class="header">
+		        <h4 class="title" style="color: white;text-align: center;">Choose a File to Process</h4>
+		    </div>
+		    <div class="content">
+		        <div class="table-full-width" style = "overflow-y:scroll;height:300px;display:block;" id="file_names">
+		            <table class="table">
+		                <tbody>
+		                	<tr>
+		                		<th style="text-align: center;">File Name</th>
+		                		<th>   </th>
+		                	</tr>
+		                    {% for file in files %}
+		                    <tr>
+		                        <input style="display: none;" value="{{ file }}" name="filename"><td style="text-align: center;"><button type="button" id="file_button_{{ forloop.counter }}" class="btn btn-default" data-toggle="modal" data-target="#myModal" value="{{ file }}" name="filename">{{ file }}</button></td>
+		                        <td><a href="/user/grammar_check?filename={{ file }}"><button class="btn btn-info" type="submit">Correct It!</button></a></td>
+		                    </tr>
+		                    {% endfor %}
+		                </tbody>
+		            </table>
+		        </div>
+		    </div>
+		</div>
 	</div>
+	<div class="col-md-2"></div>
 </div>
 {% endblock %}

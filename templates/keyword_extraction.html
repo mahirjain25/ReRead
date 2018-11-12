@@ -3,9 +3,9 @@
 <title>Keyword Extraction</title>
 {% if content|length > 0 %}
 <div class="col-md-6" style="align-self: center;">
-	<div class="card">
+	<div class="card" style="background: #222; color: white;">
 		<div class="header">
-			<h4 class="title">Keywords and References</h4>
+			<h4 class="title" style="color: white;">Keywords and References</h4>
 		</div>
 		<div class="content">
 			<div class="table-full-width" style="overflow-y: scroll;height: 300px;display: block;" id="links">
@@ -36,28 +36,62 @@
 	</div>
 </div>
 {% endif %}
-<div class="col-md-12">
-	<div class="card">
-	    <div class="header">
-	        <h4 class="title">Choose a File to Extract Keywords</h4>
-	    </div>
-	    <div class="content">
-	        <div class="table-full-width" style = "overflow-y:scroll;height:300px;display:block;" id="file_names">
-	            <table class="table">
-	                <tbody>
-	                	<tr>
-	                		<th style="text-align: center;">File Name</th>
-	                	</tr>
-	                    {% for file in files %}
-	                    <tr>
-	                        <input style="display: none;" value="{{ file }}" name="filename"><td style="text-align: center;"><button type="button" id="file_button_{{ forloop.counter }}" class="btn btn-default" data-toggle="modal" data-target="#myModal" value="{{ file }}" name="filename">{{ file }}</button></td>
-	                        <td><a href = "/user/keywords?filename={{ file }}"><button class="btn btn-info" type="submit">Extract</button></a></td>
-	                    </tr>
-	                    {% endfor %}
-	                </tbody>
-	            </table>
-	        </div>
-	    </div>
+{% if papers|length > 0 %}
+<div class="col-md-6" style="align-self: center;">
+	<div class="card" style="background: #222; color: white;">
+		<div class="header">
+			<h4 class="title" style="color: white;">Relevant Papers</h4>
+		</div>
+		<div class="content">
+			<div class="table-full-width" style="overflow-y: scroll;height: 300px;display: block;" id="links">
+				<div class="content table-responsive table-full-width">
+				<table class="table table-hover" style="text-align: center;">
+					<thead style="text-align: center;">
+						<tr>
+							<th>Paper Title</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for key,value in papers.items %}
+						<tr>
+							<td><a href="{{ value }}">{{ key }}</a></td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			</div>
+		</div>
 	</div>
+</div>
+{% endif %}
+<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+		<div class="card" style="background: #222; color: white;">
+		    <div class="header">
+		        <h4 class="title" style="color: white; text-align: center;">Choose a File to Extract Keywords</h4>
+		    </div>
+		    <div class="content">
+		        <div class="table-full-width" style = "overflow-y:scroll;height:300px;display:block;" id="file_names">
+		            <table class="table">
+		                <tbody>
+		                	<tr>
+		                		<th style="text-align: center;">File Name</th>
+		                		<th>    </th>
+		                	</tr>
+		                    {% for file in files %}
+		                    <tr>
+		                        <input style="display: none;" value="{{ file }}" name="filename"><td style="text-align: center;"><button type="button" id="file_button_{{ forloop.counter }}" class="btn btn-default" data-toggle="modal" data-target="#myModal" value="{{ file }}" name="filename">{{ file }}</button></td>
+		                        <td><a href = "/user/keywords?filename={{ file }}"><button class="btn btn-info" type="submit">Extract</button></a></td>
+		                    </tr>
+		                    {% endfor %}
+		                </tbody>
+		            </table>
+		        </div>
+		    </div>
+		</div>
+	</div>
+	<div class="col-md-2"></div>
 </div>
 {% endblock %}

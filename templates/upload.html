@@ -1,15 +1,16 @@
 {% extends 'extender.html' %}                         
 {% block content %}
 <title>Upload File</title>
-<div class="col-md-12">
-	<div class = "card" style="align-content: center;text-align: center;">
-		<form method="post" enctype="multipart/form-data" style="display: inline-block;">
-			{% csrf_token %}
-			{{ form.as_p }}
-			<button type="submit">Upload</button>
-		</form>
-
-		<p><a href="{% url 'home' %}">Return to home</a></p>
+<div class="row h-100">
+	<div class="col-md-3 align-self-center">
+		<div class = "card" style="align-content: right;text-align: center; padding: 20px;">
+			<form method="post" enctype="multipart/form-data" style="display: inline-block;">
+				{% csrf_token %}
+				{{ form.as_p }}
+				<button type="submit">Upload</button>
+			</form>
+			<p><a href="{% url 'home' %}">Return to home</a></p>
+		</div>
 	</div>
 </div>
 {% endblock %}

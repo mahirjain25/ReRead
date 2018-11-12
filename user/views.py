@@ -24,7 +24,7 @@ import sys
 from sys import argv
 import nltk
 import language_check
-
+import feedparser
 # for querying arxiv
 import urllib.request as request
 
@@ -169,9 +169,18 @@ def keywordView(request):
 			file_name = request.GET.get('filename')
 			file_path = ('user/files/' + request.user.username + '/' + file_name)
 			info = get_keyword_info(file_path)
+			papers = get_papers(file_path)
 			print(info)
-			return render(request, 'keyword_extraction.html', {'files':file_list, 'content' : info,'username':request.user.username})
+			return render(request, 'keyword_extraction.html', {'files':file_list, 'content' : info, 'papers' : papers, 'username':request.user.username})
 
+def get_papers(file_path):
+	word_list = get_keywords(file_path)
+	keyword_string = " ".join(word_list)
+	paper_dict = get_relevant_papers(keyword_string)
+	# for i, j in paper_dict:
+		# print('{} {}'.format(i, j))
+	print(paper_dict)
+	return paper_dict
 
 def get_keywords(file_path):
 	fp = open(file_path, 'r+')
