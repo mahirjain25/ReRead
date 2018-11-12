@@ -150,6 +150,9 @@
                                     <div class="table-full-width" style = "overflow-y:scroll;height:300px;display:block;" id="file_names">
                                         <table class="table">
                                             <tbody>
+                                                {% if files|length < 1 %}
+                                                <tr><td><i>No files uploaded</i></td></tr>
+                                                {% endif %}
                                                 {% for file in files %}
                                                 <tr>
                                                    <!--  <td>
@@ -203,7 +206,7 @@
 </div>
 
 <div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog" style="max-width: 900px;">
+  <div class="modal-dialog" style="width: auto; max-width: 900px;">
 
     <!-- Modal content-->
     <div class="modal-content" style="background:#222;color:white;">

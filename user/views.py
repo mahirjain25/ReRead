@@ -36,6 +36,7 @@ def userHomePage(request):
 		file_name = request.POST.get('name', None)
 		with open('user/files/' + request.user.username + '/' + file_name) as f:
 			data = f.read()
+		data = "<br />".join(data.split("\n"))
 		result = {
 			'file_content' : data
 		}
@@ -75,7 +76,8 @@ def fileUploadView(request):
 	else:
 		form = UploadFileForm()
 	return render(request, 'upload.html', {
-		'form': form
+		'form': form,
+		'username': request.user.username
 	})
 
 
