@@ -132,7 +132,7 @@ def createSummaryFromFile(filepath,len_pct,username):
 
 	input_file_name = inputFile.split('/')[-1]
 	outputFile = input_file_name + '_abtracted.txt'
-	bashCommand = "sumy lex-rank --length={}% --file={} >> {}".format(len_pct, input_file_name+'.txt', outputFile)
+	bashCommand = "sumy lex-rank --length={}% --file={} > {}".format(len_pct, input_file_name+'.txt', outputFile)
 	curr_dir = os.getcwd()
 	os.chdir("user/files/"+username+"/")
 	os.system(bashCommand)
