@@ -508,6 +508,17 @@ input:focus {
     background-size: 150% 150%;
 }
 
+.sidebar[data-color="custom"]:after {
+    background: #222;
+    background: -moz-linear-gradient(top, #222 0%, #222 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #222), color-stop(100%, #222));
+    background: -webkit-linear-gradient(top, #222 0%, #222 100%);
+    background: -o-linear-gradient(top, #222 0%, #222 100%);
+    background: -ms-linear-gradient(top, #222 0%, #222 100%);
+    background: linear-gradient(to bottom, #222 0%, #222 100%);
+    background-size: 150% 150%;
+}
+
 .main-panel {
     position: relative;
     z-index: 2;
