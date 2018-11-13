@@ -5,7 +5,7 @@ from django.urls import reverse
 from .forms import *
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from urllib.parse import urlencode
 # from .views import *
@@ -59,12 +59,27 @@ def logout_page(request):
 
 
 @login_required(redirect_field_name='login')
-def displayUploadedFile(request):
+def deleteFile(request):
 	if request.method == 'GET':
-		file_name = request.GET.get('file_name')
-		with open('user/files/' + request.user.username + '/' + file_name + '.txt') as f:
-			data = f.read()
-		return render(request, 'display_uploaded_file.html', {'content' : data})
+		file_name = request.GET.get('filename')
+		curr_dir = os.getcwd()
+		os.chdir("user/files/"+request.user.username+"/")
+		os.system("rm "+file_name)
+		os.chdir(curr_dir)
+		return HttpResponseRedirect("/user")
+
+@login_required(redirect_field_name='login')
+def downloadView(request):
+	if request.method == 'GET':
+		filename = request.GET.get('filename','')
+		filepath = "user/files/"+request.user.username+"/"+filename
+		print(filepath)
+		if os.path.exists(filepath):
+			with open(filepath, 'rb') as fh:
+				response = HttpResponse(fh.read(), content_type="text/plain")
+				response['Content-Disposition'] = 'inline; filename=' + os.path.basename(filepath)
+				return response
+		raise Http404
 
 @login_required(redirect_field_name='login')
 def fileUploadView(request):

@@ -106,29 +106,6 @@
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                           <a href="">
-                               <p>Account</p>
-                            </a>
-                        </li>
-                        <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <p>
-										Dropdown
-										<b class="caret"></b>
-									</p>
-
-                              </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                              </ul>
-                        </li>
-                        <li>
                             <a href="/user/logout">
                                 <p>Log out</p>
                             </a>
@@ -141,7 +118,7 @@
             <div class="content" style="background-image: url('/static/dashboard/img/bg4.jpg'); background-size: cover;background-repeat: no-repeat;background-position: center center;">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="card" style="background:#222;color:white;">
                                 <div class="header">
                                     <h4>Your Files</h4>
@@ -162,6 +139,12 @@
     					  						  		</div>
                                                     </td> -->
                                                     <td style="text-align: center;"><button type="button" id="file_button_{{ forloop.counter }}" class="btn btn-default" data-toggle="modal" data-target="#myModal" value="{{ file }}">{{ file }}</button></td>
+                                                    <td style="text-align: center;">
+                                                        <a href="/user/download/?filename={{ file }}"><button type="button" class="btn btn-info">Download</button></a>
+                                                    </td>
+                                                     <td style="text-align: center;">
+                                                        <a href="/user/delete_file/?filename={{ file }}"><button type="button" class="btn btn-danger">Delete</button></a>
+                                                    </td>
                                                     <!-- <td class="td-actions text-right">
                                                         <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
                                                             <i class="fa fa-edit"></i>
@@ -178,7 +161,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-8">
                             <div class="card" style="background: #222; padding: 10px; padding-bottom: 52px;">
                                 <div style="text-align: center; color: white; font-style: ">
                                         <h2>Using the ReRead Tool</h2>

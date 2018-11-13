@@ -17,10 +17,13 @@
 		                		<th>Shrink To (Percentage of Original)</th>
 		                		<th>   </th>
 		                	</tr>
+		                	{% if files|length < 1 %}
+                                                <tr><td><i>No files uploaded</i></td></tr>
+                                                {% endif %}
 		                    {% for file in files %}
 		                    <tr>
 		                        <input style="display: none;" value="{{ file }}" name="filename"><td style="text-align: center;"><button type="button" id="file_button_{{ forloop.counter }}" class="btn btn-default" data-toggle="modal" data-target="#myModal" value="{{ file  }}" name="filename">{{ file }}</button></td>
-		                        <td><input id='pct_{{ file }}' name="percentage" placeholder="Enter Percentage (1-100)"></td>
+		                        <td><input style="color:black;" id='pct_{{ file }}' name="percentage" placeholder="Enter Percentage (1-100)"></td>
 		                        <td><a href='' onclick="this.href='/user/display_summary?filename={{ file }}&pct='+document.getElementById('pct_{{ file }}').value"><button class="btn btn-info" type="submit">Process</button></a></td>
 		                    </tr>
 		                    {% endfor %}
