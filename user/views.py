@@ -76,7 +76,7 @@ def downloadView(request):
 		print(filepath)
 		if os.path.exists(filepath):
 			with open(filepath, 'rb') as fh:
-				response = HttpResponse(fh.read(), content_type="text/plain")
+				response = HttpResponse(fh.read(), content_type="application/vnd.oasis.opendocument.text")
 				response['Content-Disposition'] = 'inline; filename=' + os.path.basename(filepath)
 				return response
 		raise Http404
